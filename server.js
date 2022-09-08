@@ -25,7 +25,7 @@ const PORT = (process.env.PORT)|| 3002 //parseint
 // app.get('/')
 
 app.get('*', (request, response) => {
-    response.status(404).send('Not availabe');
+    response.status(404).send('Not availabe, son');
   });
 
   app.use((error, request, response, next) => {
