@@ -1,4 +1,5 @@
 const { Product } = require("../models/product.model")
+const { User } = require("../models/user.model")
 
 module.exports.createProduct = (request, response) => {
     const { content, title, comments } = request.body
@@ -8,8 +9,18 @@ module.exports.createProduct = (request, response) => {
         .then(item => response.json(item))
         .catch(err => response.json(err))
 }
+
+module.exports.createUser = (request, response) => {
+    const { name, email } = request.body
+    console.log("user info say what?", User)
+    User.create({
+        name, email
+    })
+        .then(item => response.json(item))
+        .catch(err => response.json(err))
+}
+
 module.exports.getAllProducts = (request, response) => {
-    const { title, content } = request.body
     Product.find({})
         .then(catalog => response.json(catalog))
         .catch(err => response.json(err))
@@ -47,23 +58,14 @@ module.exports.deleteComment = (request, response) => {
 module.exports.addComment = (req, res) => {
     Product.findOne({ _id: req.params.id, 'comments.author': req.body.author })
         .then(data => {
-            if (data == null) {
-                return Product.findOneAndUpdate({ _id: req.params.id },
-                    { $addToSet: { comments: req.body } },
-                    { runValidators: true, useFindAndModify: false, new: true })
-            } else {
-                res.json({ err: "You already posted a comment.." });
-            }
+            // if (data == null) {
+            return Product.findOneAndUpdate({ _id: req.params.id },
+                { $addToSet: { comments: req.body } },
+                { runValidators: true, useFindAndModify: false, new: true })
+            // } else {
+            //     res.json({ err: "You already posted a comment.." });
+            // }
         })
         .then(data => res.json(data))
         .catch(err => res.json(err))
 }
-// module.exports.addComment = (req, res) => {
-//         Product.findOneAndUpdate({ _id: req.params.id },
-//             // req.body,
-//                 { $addToSet: {comments: req.body} },
-//                 { useFindAndModify: false, new: true })
-//                 .then(data=>res.json(data))
-//                 .catch(err=>res.json(err))
-//                 console.log("ssss")
-//         }
