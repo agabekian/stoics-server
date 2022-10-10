@@ -5,11 +5,15 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         // required: [true, "Your comment must be at least 10 characters long"]
     },
+    secKey: {
+        type: String,
+
+    },
     text: {
         type: String,
         // required: [true, "Your comment must be at least 10 characters long"]
     },
-    time : { type : Date, default: Date.now}
+    time: { type: Date, default: Date.now }
 },
     { timestamps: true });
 

@@ -38,10 +38,11 @@ module.exports.deleteProduct = (request, response) => {
         .catch(err => response.json(err))
 }
 module.exports.deleteComment = (request, response) => {
+    console.log("incoming", request.params.cid);
     Product.findOneAndUpdate(
         { _id: request.params.id },
         {
-            $pull: { comments: { _id: request.params.cid } }
+            $pull: { comments: { secKey: request.params.cid } }
         },
         { new: true }
     )
