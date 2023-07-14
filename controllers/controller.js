@@ -42,7 +42,7 @@ module.exports.deleteComment = (request, response) => {
     Product.findOneAndUpdate(
         { _id: request.params.id },
         {
-            $pull: { comments: { secKey: request.params.cid } }
+            $pull: { comments: { _id: request.params.cid } }
         },
         { new: true }
     )
@@ -57,7 +57,7 @@ module.exports.deleteComment = (request, response) => {
 //         .catch(err => response.json(err))
 // }
 module.exports.addComment = (req, res) => {
-    Product.findOne({ _id: req.params.id, 'comments.author': req.body.author })
+    Product.findOne({ secKey: req.params.id, 'comments.author': req.body.author })
         .then(data => {
             // if (data == null) {
             return Product.findOneAndUpdate({ _id: req.params.id },
