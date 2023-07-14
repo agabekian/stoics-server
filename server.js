@@ -11,7 +11,7 @@ require('./config/mongoose.config')
 require('./routes/entries.routes')(app)
 
 app.get('*', (request, response) => {
-  response.status(404).send('Route does not exist');
+  response.status(404).send('Route does not exist ...yet');
 });
 
 PORT = process.env.PORT||3002

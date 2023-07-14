@@ -42,7 +42,9 @@ module.exports.deleteComment = (request, response) => {
     Product.findOneAndUpdate(
         { _id: request.params.id },
         {
-            $pull: { comments: { secKey: request.params.cid } }
+            $pull: { comments: 
+                { _id: request.params.cid } //_id was secKey
+            }
         },
         { new: true }
     )
